@@ -75,3 +75,15 @@ if (BUILD_BENCHMARKS)
 	enable_testing()
 	add_subdirectory(tests/benchmarks)
 endif()
+
+# Set up MSVC debugger to work with Reaper
+if(MSVC)
+	if(DEFINED ENV{REAPERDEV} AND EXISTS $ENV{REAPERDEV})
+		set_target_properties(aether_ui PROPERTIES
+            VS_DEBUGGER_COMMAND "$ENV{REAPERDEV}/reaper.exe"
+            VS_DEBUGGER_COMMAND_ARGUMENTS "")
+		set_target_properties(aether_dsp PROPERTIES
+            VS_DEBUGGER_COMMAND "$ENV{REAPERDEV}/reaper.exe"
+            VS_DEBUGGER_COMMAND_ARGUMENTS "")
+	endif()
+endif()
